@@ -1,0 +1,34 @@
+# ansible-playbook -i inventory  -e ansible_user=centos -e ansible_password=DevOps321 mysql.yaml
+
+- name: set up my sql database server
+  hosts: mysql
+  become: yes
+  tasks:
+  - name:
+    command: dnf module disable mysql -y
+
+  - name: copy my sql repo
+    copy:
+      src: mysql.repo
+      dest: /etc/yum.repos.d/mysql.repo
+
+  # - name:
+  #   command: dnf install mysql-community-server -y
+
+  - name: install my sql community server
+    dnf:
+      name: mysql-community-server
+      state: present
+  
+  - name: start my sql server
+    service:
+      name: mysqld
+      state: started
+      enabled: yes
+  
+  - name: setting up password
+    command: mysql_secure_installation --set-root-pass RoboShop@1
+
+#The below command is to check mysql is connected or not
+  # - name: 
+  #   command: mysql -uroot -pRoboShop@1

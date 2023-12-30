@@ -1,0 +1,21 @@
+
+MONGODB_HOST: mongodb.nariops.online
+
+CATALOGUE_HOST: catalogue.nariops.online
+
+REDIS_HOST: redis.nariops.online
+
+USER_HOST: user.nariops.online
+
+CART_HOST: cart.nariops.online
+
+MYSQL_HOST: mysql.nariops.online
+
+SHIPPING_HOST: shipping.nariops.online
+
+RABBITMQ_HOST: rabbitmq.nariops.online
+
+PAYMENT_HOST: payment.nariops.online
+
+DISPATCH_HOST: dispatch.nariops.online
+

@@ -1,0 +1,30 @@
+#ansible-playbook -i inventory  -e ansible_user=centos -e ansible_password=DevOps321 component=user user.yaml
+
+- name: app setup
+  import_role:
+    name: common
+    tasks_from: app-setup
+
+- name: install nodeJS
+  import_role:
+    name: common
+    tasks_from: nodeJS
+
+- name: syetemctl service
+  import_role:
+    name: common
+    tasks_from: systemd
+  
+- name:
+  import_role:
+    name: common
+    tasks_from: mongodb-setup
+
+
+  
+
+
+
+
+  
+

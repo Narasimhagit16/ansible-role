@@ -1,0 +1,17 @@
+
+
+- name: install python gcc and python-devel
+  # command: dnf install python36 gcc python3-devel -y
+  dnf:
+    name: "{{item}}"
+    state: present
+  loop:
+  - python
+  - gcc
+  - python3-devel
+
+
+- name: install dependencies
+    command: pip3.6 install -r requirements.txt
+    args:
+      chdir: /app

@@ -1,0 +1,13 @@
+
+- name: install maven
+  dnf:
+    name: maven
+    state: present
+
+- name:  build package
+  command: mvn clean package
+  args:
+    chdir: /app
+
+- name:
+  command: mv /app/target/shipping-1.0.jar /app/shipping.jar

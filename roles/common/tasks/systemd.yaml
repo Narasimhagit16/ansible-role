@@ -1,0 +1,20 @@
+# - name: "copy {{component}} service file"
+#   copy:
+#     src: "{{component}}.service"
+#     dest: "/etc/systemd/system/{{component}}.service"
+
+
+- name: "copy {{component}} service file"
+  template:
+    src: "{{component}}.service.j2"
+    dest: "/etc/systemd/system/{{component}}.service"
+
+- name: deamon realod and start
+  systemd_service: 
+    daemon_reload: true
+
+- name: "restart the {{component}} service"
+  service:
+    name: "{{component}}"
+    state: restarted
+    enabled: yes

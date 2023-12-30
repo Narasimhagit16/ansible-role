@@ -1,0 +1,17 @@
+
+# ansible-playbook -i inventory  -e ansible_user=centos -e ansible_password=DevOps321 payment.yaml
+
+  - name: app-setup
+    import_role:
+      name: common
+      tasks_from: app-setup
+  
+  - name: python-setup
+    import_role:
+      name: common
+      tasks_from: python-setup
+
+  - name: systemd
+    import_role:
+      name: common
+      tasks_from: systemd

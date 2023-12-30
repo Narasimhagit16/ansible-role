@@ -1,0 +1,24 @@
+  - name: create user
+    user:
+      name: roboshop
+
+  - name: remove app directory
+    file:
+      path: /app
+      state: absent
+
+  - name: create app directory
+    file:
+      path: /app
+      state: directory
+  
+  - name: "download {{component}} appliaction code"
+    get_url:
+      url: "https://roboshop-builds.s3.amazonaws.com/{{component}}.zip"
+      dest: /tmp
+
+  - name: Unzip the code
+    unarchive:
+      src: "/tmp/{{component}}.zip"
+      dest: /app
+      remote_src: yes

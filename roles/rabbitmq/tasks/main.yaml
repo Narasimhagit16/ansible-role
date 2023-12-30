@@ -1,0 +1,47 @@
+# ansible-playbook -i inventory  -e ansible_user=centos -e ansible_password=DevOps321 rabbitmq.yaml
+
+- name:
+  hosts: rabbitmq
+  become: yes
+  tasks:
+  # - name:
+  #   command: curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash    
+
+  - name: setup erlang script
+    shell: curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash
+
+  - name: run the script
+    shell: curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash
+
+  - name: install rabbitmq server
+    dnf:
+      name: rabbitmq-server
+      state: present
+
+  - name: start rabbitmq server
+    service:
+      name: rabbitmq-server 
+      state: started
+      enabled: yes
+
+  # - name: create rabbitmq user
+  #   command: rabbitmqctl add_user roboshop roboshop123
+
+
+  - name: creating rabbitmq user
+    community.rabbitmq.rabbitmq_user:
+      user: roboshop
+      password: roboshop123
+      state: present
+      
+
+  - name: giving permissions to user
+    command: rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+
+
+
+
+
+
+
+

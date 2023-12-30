@@ -1,0 +1,21 @@
+#ansible-playbook -i inventory -e ansible_user=centos -e ansible_password=DevOps321 component=catalogue catalogue.yaml
+
+- name:
+  import_role:
+    name: common
+    tasks_from: app-setup
+
+- name:
+  import_role:
+    name: common
+    tasks_from: nodeJS
+  
+- name:
+  import_role:
+    name: common
+    tasks_from: mongodb-setup
+
+- name:
+  import_role:
+    name: common
+    tasks_from: systemd

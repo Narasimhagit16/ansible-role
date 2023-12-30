@@ -1,0 +1,25 @@
+
+- name:
+  import_role:
+    name: common
+    tasks_from: app-setup
+
+- name:
+  import_role:
+    name: common
+    tasks_from: java
+  
+- name: install my sql client
+  dnf:
+    name: mysql
+    state: present
+
+- name:
+  import_role:
+    name: common
+    tasks_from: systemd
+      
+
+
+
+

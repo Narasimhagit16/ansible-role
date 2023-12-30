@@ -1,0 +1,32 @@
+#used below command to run the playbook   
+# ansible-playbook -i inventory -e ansible_user=centos -e ansible_password=DevOps321 component=mongodb mongodb.yaml
+
+  - name: copy repo file
+    copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+  
+  - name: intsall mongo DB
+    package:
+      name: mongodb-org
+      state: present
+
+  - name: start and enable mongo DB
+    service:
+      name: mongod
+      state: started
+      enabled: yes
+  
+  - name: Giving remote access to 
+    replace:
+      path: /etc/mongod.conf
+      regexp: "127.0.0.1"
+      replace: "0.0.0.0"
+
+  - name: Re-start mongo DB
+    service:
+      name: mongod
+      state: restarted
+
+
+

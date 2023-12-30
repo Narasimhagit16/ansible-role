@@ -1,0 +1,28 @@
+ - name: Copy mongodb repo
+   copy:
+      src: mongodb.repo
+      dest: /etc/yum.repos.d/mongodb.repo
+
+  - name: Install mongodb client
+    package:
+      name: mongodb-org-shell
+      state: present
+
+  - name: get the products count
+    command:  mongo --host mongodb.nariops.online --quiet --eval 'db = db.getSiblingDB("users"); db.products.count()'
+    register: products_count
+    when: componet == "user"
+
+  - name: get the users count
+    command:  mongo --host mongodb.nariops.online --quiet --eval 'db = db.getSiblingDB("users"); db.users.count()'
+    register: user_count
+    when: componet == "catalogue"
+
+  - name: load catalogue data
+    command: mongo --host mongodb.nariops.online < /app/schema/catalogue.js
+    when: products.stdout == "0" and component == "catalouge"
+
+
+  - name: load user data
+    command: mongo --host mongodb.nariops.online < /app/schema/user.js
+    when: user.stdout == "0" and component == "user"

@@ -1,0 +1,18 @@
+- name: install my sql client
+  dnf:
+    name: mysql
+    state: present
+
+- name: check cities schema exists or not
+  ansible.builtin.command:  mysql -h mysql.nariops.online -uroot -p{{pwd}} -sN -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'cities'"
+  register: schema
+
+- name: print output
+  ansible.builtin.debug:
+    msg: "schema output: {{schema}}"
+
+
+- name: load shipping schema
+  shell: "mysql -h mysql.nariops.online -uroot -p{{pwd}} < /app/schema/shipping.sql"
+  when: schema.stdout != "1"
+

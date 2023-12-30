@@ -1,0 +1,13 @@
+
+  - name:
+    shell: dnf module disable nodejs -y ; dnf module enable nodejs:18 -y
+
+  - name: install node js
+    dnf:
+      name: nodejs
+      state: present
+
+  - name: resolve the dependencies
+    community.general.npm:
+      path: /app
+      
